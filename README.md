@@ -32,33 +32,41 @@ A simple command-line tool written in Python to generate random 4-byte UIDs in t
 
    ```bash
    git clone https://github.com/your_username/nfc.python.git
+   ```
 
-    Navigate to the project directory:
+2. **Navigate to the project directory:**
 
-cd nfc.python
+   ```bash
+   cd nfc.python
+   ```
 
-(Optional) Create a virtual environment:
+3. **(Optional) Create a virtual environment:**
 
-This project uses only standard libraries, but it’s good practice to work in a virtual environment.
+   This project uses only standard libraries, but it’s good practice to work in a virtual environment.
 
-    python3 -m venv venv
-    source venv/bin/activate  # On Windows use: venv\Scripts\activate
-    pip install --upgrade pip
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate  # On Windows use: venv\Scripts\activate
+   pip install --upgrade pip
+   ```
 
-🚀 Usage
+## 🚀 Usage
 
 Run the script using Python:
 
+```bash
 python nfc.py
+```
 
 You will be guided through a series of prompts:
 
-    Select a Preset: A list of available presets will be displayed. Enter the corresponding number (1-4).
-    Specify Quantity: Input how many UIDs you want to generate (between 1 and 100).
-    Set Output Filename: Provide a name for the output file (e.g., generated.txt). If left blank, it defaults to generated.txt.
+1. **Select a Preset:** A list of available presets will be displayed. Enter the corresponding number (1-4).
+2. **Specify Quantity:** Input how many UIDs you want to generate (between 1 and 100).
+3. **Set Output Filename:** Provide a name for the output file (e.g., `generated.txt`). If left blank, it defaults to `generated.txt`.
 
 Example session:
 
+```
 === Swedish NFC Generator ===
 1. Property Gate (Property gate (4-byte UID))
 2. Apartment Door (Residential door systems)
@@ -72,49 +80,56 @@ Enter output filename (e.g., generated.txt): apartment_uids.txt
 Generating 10 apartment door UIDs...
 Successfully created apartment_uids.txt
 Sample entry format: 12BA5AE0
+```
 
 The generated file will contain the specified number of UIDs in uppercase hexadecimal format, one per line.
-📱 Flipper Zero Compatibility
 
-This tool is Flipper Zero ready! The generated NFC UIDs are perfectly formatted for use with the Flipper Zero device, a versatile multi-tool for pentesters, hackers, and tech enthusiasts. Simply generate the UIDs, load them onto your Flipper Zero, and start exploring NFC functionalities.
+## 📱 Flipper Zero Compatibility
 
-For more information on the Flipper Zero, visit the official website.
-🧐 Code Overview
+This tool is **Flipper Zero ready**! The generated NFC UIDs are perfectly formatted for use with the Flipper Zero device, a versatile multi-tool for pentesters, hackers, and tech enthusiasts. Simply generate the UIDs, load them onto your Flipper Zero, and start exploring NFC functionalities.
 
-    SWEDISH_PRESETS:
-    A dictionary that stores configurations (UID length and description) for each preset.
+For more information on the Flipper Zero, visit the [official website](https://flipperzero.one/).
 
-    generate_uid(length):
-    Generates a random UID of the specified length (in bytes). The UID is returned as a bytes object.
+## 🧐 Code Overview
 
-    generate_nfc_file(preset, count, filename):
-    Generates the desired number of UIDs based on the selected preset and writes them to the provided filename.
+- **SWEDISH_PRESETS:**  
+  A dictionary that stores configurations (UID length and description) for each preset.
 
-    main():
-    Provides the command-line interface for user interaction, allowing selection of presets, count, and output filename. It then triggers UID generation and writes the results to a file.
+- **generate_uid(length):**  
+  Generates a random UID of the specified length (in bytes). The UID is returned as a `bytes` object.
 
-🛠️ Customization
+- **generate_nfc_file(preset, count, filename):**  
+  Generates the desired number of UIDs based on the selected preset and writes them to the provided filename.
+
+- **main():**  
+  Provides the command-line interface for user interaction, allowing selection of presets, count, and output filename. It then triggers UID generation and writes the results to a file.
+
+## 🛠️ Customization
 
 Feel free to modify or extend this tool:
 
-    Add New Presets:
-    Modify the SWEDISH_PRESETS dictionary to include additional NFC system configurations.
+- **Add New Presets:**  
+  Modify the `SWEDISH_PRESETS` dictionary to include additional NFC system configurations.
+  
+- **Change UID Length:**  
+  Adjust the `uid_length` parameter in any preset to generate UIDs of different lengths.
 
-    Change UID Length:
-    Adjust the uid_length parameter in any preset to generate UIDs of different lengths.
+- **Integrate with Other Systems:**  
+  Use the generated UIDs as part of a larger NFC management or testing system.
 
-    Integrate with Other Systems:
-    Use the generated UIDs as part of a larger NFC management or testing system.
-
-🤝 Contributing
+## 🤝 Contributing
 
 Contributions are welcome! If you have suggestions, feature requests, or bug fixes, please feel free to open an issue or submit a pull request. For major changes, please discuss them first via an issue.
-📄 License
 
-This project is licensed under the MIT License. See the LICENSE file for more details.
-⚠️ Disclaimer
+## 📄 License
 
-This tool is intended for educational purposes only. It is provided as-is and for demonstration and learning purposes. The author and contributors are not responsible for any misuse or legal issues that may arise from its use. Please use it responsibly and in compliance with all applicable laws and regulations.
-🙏 Acknowledgements
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+
+## ⚠️ Disclaimer
+
+This tool is intended for **educational purposes only**. It is provided as-is and for demonstration and learning purposes. **The author and contributors are not responsible for any misuse or legal issues that may arise from its use.** Please use it responsibly and in compliance with all applicable laws and regulations.
+
+## 🙏 Acknowledgements
 
 This tool was created to provide a quick and easy way to generate Swedish-format NFC UIDs for various applications, especially tailored for the Flipper Zero. Special thanks to all contributors and the open-source community for their support.
+```

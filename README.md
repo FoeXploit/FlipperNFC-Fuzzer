@@ -18,10 +18,10 @@ A simple command-line tool written in Python to generate random 4-byte UIDs in t
 ## ✨ Features
 
 - **Multiple Presets:** Supports various NFC systems:
-  - **Property Gate:** For 4-byte UID property access systems.
-  - **Apartment Door:** For residential door systems.
-  - **Industrial Door:** For industrial security systems.
-  - **Public Transit:** For transit-like cards.
+- **Property Gate:** For 4-byte UID property access systems.
+- **Apartment Door:** For residential door systems.
+- **Industrial Door:** For industrial security systems.
+- **Public Transit:** For transit-like cards.
 - **Interactive CLI:** Choose presets, specify the number of UIDs (1-100), and set the output filename interactively.
 - **Random UID Generation:** Generates random hexadecimal UIDs using Python’s built-in libraries.
 - **Flipper Zero Ready:** Generate UIDs in a format that is compatible with the Flipper Zero's NFC emulation features.

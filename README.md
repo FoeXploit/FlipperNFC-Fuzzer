@@ -1,135 +1,141 @@
-# 🇸🇪 Swedish NFC Generator 🔑
+# 🇸🇪 Swedish NFC UID Generator v2.0 🚀
 
-A simple command-line tool written in Python to generate random 4-byte UIDs in the Swedish common format for NFC systems. This script supports multiple presets tailored for different applications such as property gates, residential doors, industrial systems, and public transit. **It is specifically designed for use with the Flipper Zero device**, enabling you to generate NFC UIDs that are ready to be deployed on your Flipper Zero for various NFC applications.
+This Python tool simulates the generation of **real Swedish system-compatible UIDs** for various applications. It is designed to mimic the UID formats used in Swedish systems, such as Stockholm Public Transport (SL), industrial systems by ASSA Abloy, apartment door systems, and property gates. Each application type is based on specific field structures and includes a fixed prefix, ensuring that the generated UIDs resemble actual UIDs from Swedish systems.
 
-## 📋 Table of Contents
-
-- [Features ✨](#features-)
-- [Installation 💻](#installation-)
-- [Usage 🚀](#usage-)
-- [Flipper Zero Compatibility 📱](#flipper-zero-compatibility-)
-- [Code Overview 🧐](#code-overview-)
-- [Customization 🛠️](#customization-)
-- [Contributing 🤝](#contributing-)
-- [License 📄](#license-)
-- [Disclaimer ⚠️](#disclaimer-)
-- [Acknowledgements 🙏](#acknowledgements-)
+---
 
 ## ✨ Features
 
-- **Multiple Presets:** Supports various NFC systems:
-- **Property Gate:** For 4-byte UID property access systems.
-- **Apartment Door:** For residential door systems.
-- **Industrial Door:** For industrial security systems.
-- **Public Transit:** For transit-like cards.
-- **Interactive CLI:** Choose presets, specify the number of UIDs (1-100), and set the output filename interactively.
-- **Random UID Generation:** Generates random hexadecimal UIDs using Python’s built-in libraries.
-- **Flipper Zero Ready:** Generate UIDs in a format that is compatible with the Flipper Zero's NFC emulation features.
+- **Application-Specific UID Generation** 🔑  
+  Generate UIDs that follow predefined structures for:
+  - **Public Transit** (e.g., SL Access Cards) 🚌
+  - **Industrial Door Systems** (e.g., ASSA Abloy industrial systems) 🏭
+  - **Apartment Door Systems** (e.g., HSB Living) 🏢
+  - **Property Gates** (e.g., Nordomatic systems) 🚪
 
-## 💻 Installation
+- **Card Type Selection** 📇  
+  Supports multiple card formats:
+  - **Classic 1K & Classic 4K:** 4-byte UIDs  
+  - **Ultralight:** 7-byte UIDs
 
-1. **Clone the repository:**
+- **Detailed Breakdown** 📝  
+  Each generated UID includes a human-readable breakdown of its constituent fields (e.g., prefix, transport authority, company ID, etc.) in the output file.
+
+- **Realistic UID Structure** 🔍  
+  The generation logic uses fixed prefixes and realistic field assignments (including random selections and date-based calculations) to simulate production-grade UID formats.
+
+---
+
+## 📚 System-Specific UID Logic
+
+The script defines system-specific patterns in the `SWEDISH_UID_PATTERNS` dictionary. For example:
+
+- **Public Transit** 🚌  
+  - **Prefix:** `0x04`  
+  - **Structure:**  
+    - `prefix` (1 byte)  
+    - `transport_authority` (2 bytes; e.g., `0xAB` for SL or `0xCD` for Västtrafik)  
+    - `card_type` (1 byte; different values for Adult, Child, Senior)  
+    - `issuer_code` (1 byte; e.g., `0x25` for Assa Abloy)  
+    - `serial` (2 bytes; random)
+
+- **Industrial Door** 🏭  
+  - **Prefix:** `0x02`  
+  - **Structure:**  
+    - `prefix` (1 byte)  
+    - `company_id` (2 bytes; e.g., `0x0041` for Volvo, `0x003B` for Scania)  
+    - `facility_code` (1 byte)  
+    - `door_group` (1 byte)  
+    - `checksum` (1 byte; calculated as XOR of previous bytes)  
+    - `serial` (2 bytes; random)
+
+- **Apartment Door** 🏢  
+  - **Prefix:** `0x01`  
+  - **Structure:**  
+    - `prefix` (1 byte)  
+    - `municipality_code` (2 bytes; ISO 3166-2:SE code)  
+    - `housing_assoc` (1 byte)  
+    - `building_id` (1 byte)  
+    - `unit_code` (1 byte)  
+    - `issue_date` (2 bytes; encoded as week and year)
+
+- **Property Gate** 🚪  
+  - **Prefix:** `0x03`  
+  - **Structure:**  
+    - `prefix` (1 byte)  
+    - `region_code` (1 byte; e.g., `0x01` for Norrland)  
+    - `property_type` (1 byte; e.g., Residential or Commercial)  
+    - `installer_id` (1 byte; certified partner code)  
+    - `activation_date` (2 bytes; days since 2000-01-01)  
+    - `unique_id` (2 bytes; random)
+
+The card types determine the total length of the UID. For example, Classic cards produce 4-byte UIDs, while Ultralight cards produce 7-byte UIDs.
+
+---
+
+## 🛠️ Requirements
+
+- Python 3.6 or higher
+
+---
+
+## ▶️ How to Use
+
+1. **Clone or Download the Repository**  
+   Save the script (e.g., as `swedish_uid_generator.py`) to your local machine.
+
+2. **Run the Script**
+
+   Open a terminal and execute:
 
    ```bash
-   git clone https://github.com/your_username/nfc.python.git
+   python swedish_uid_generator.py
    ```
 
-2. **Navigate to the project directory:**
+3. **Follow On-Screen Prompts**
 
-   ```bash
-   cd nfc.python
-   ```
+   - **Select Application Type:**  
+     Choose from options like Public Transit, Industrial Door, Apartment Door, or Property Gate.
 
-3. **(Optional) Create a virtual environment:**
+   - **Select Card Format:**  
+     Choose the card type (Classic 1K, Classic 4K, or Ultralight).
 
-   This project uses only standard libraries, but it’s good practice to work in a virtual environment.
+   - **Specify UID Quantity:**  
+     Enter the number of UIDs you wish to generate (between 1 and 1000).
 
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate  # On Windows use: venv\Scripts\activate
-   pip install --upgrade pip
-   ```
+   - **Provide an Output Filename:**  
+     The generated UIDs (with field breakdowns) will be saved to the specified file.
 
-## 🚀 Usage
+4. **Review the Output**  
+   Each line in the output file includes the generated UID in uppercase hexadecimal format followed by a comment with the breakdown of each field.
 
-Run the script using Python:
+---
 
-```bash
-python nfc.py
-```
+## 📖 Example Output
 
-You will be guided through a series of prompts:
-
-1. **Select a Preset:** A list of available presets will be displayed. Enter the corresponding number (1-4).
-2. **Specify Quantity:** Input how many UIDs you want to generate (between 1 and 100).
-3. **Set Output Filename:** Provide a name for the output file (e.g., `generated.txt`). If left blank, it defaults to `generated.txt`.
-
-Example session:
+An example line in the output file might look like:
 
 ```
-=== Swedish NFC Generator ===
-1. Property Gate (Property gate (4-byte UID))
-2. Apartment Door (Residential door systems)
-3. Industrial Door (Industrial systems)
-4. Public Transit (Transit-like cards)
-
-Enter your choice (1-4): 2
-How many UIDs do you want to generate (1-100)? 10
-Enter output filename (e.g., generated.txt): apartment_uids.txt
-
-Generating 10 apartment door UIDs...
-Successfully created apartment_uids.txt
-Sample entry format: 12BA5AE0
+04AB01A9253F # {'prefix': '0x04', 'transport_authority': '0xABCD', 'card_type': '0x01', 'issuer_code': '0x25', 'serial': '0x3F92'}
 ```
 
-The generated file will contain the specified number of UIDs in uppercase hexadecimal format, one per line.
+This line shows:
+- The UID: `04AB01A9253F`  
+- A breakdown of its components: the fixed prefix, selected transport authority, card type, issuer code, and a randomly generated serial number.
 
-## 📱 Flipper Zero Compatibility
-
-This tool is **Flipper Zero ready**! The generated NFC UIDs are perfectly formatted for use with the Flipper Zero device, a versatile multi-tool for pentesters, hackers, and tech enthusiasts. Simply generate the UIDs, load them onto your Flipper Zero, and start exploring NFC functionalities.
-
-For more information on the Flipper Zero, visit the [official website](https://flipperzero.one/).
-
-## 🧐 Code Overview
-
-- **SWEDISH_PRESETS:**  
-  A dictionary that stores configurations (UID length and description) for each preset.
-
-- **generate_uid(length):**  
-  Generates a random UID of the specified length (in bytes). The UID is returned as a `bytes` object.
-
-- **generate_nfc_file(preset, count, filename):**  
-  Generates the desired number of UIDs based on the selected preset and writes them to the provided filename.
-
-- **main():**  
-  Provides the command-line interface for user interaction, allowing selection of presets, count, and output filename. It then triggers UID generation and writes the results to a file.
-
-## 🛠️ Customization
-
-Feel free to modify or extend this tool:
-
-- **Add New Presets:**  
-  Modify the `SWEDISH_PRESETS` dictionary to include additional NFC system configurations.
-  
-- **Change UID Length:**  
-  Adjust the `uid_length` parameter in any preset to generate UIDs of different lengths.
-
-- **Integrate with Other Systems:**  
-  Use the generated UIDs as part of a larger NFC management or testing system.
-
-## 🤝 Contributing
-
-Contributions are welcome! If you have suggestions, feature requests, or bug fixes, please feel free to open an issue or submit a pull request. For major changes, please discuss them first via an issue.
-
-## 📄 License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+---
 
 ## ⚠️ Disclaimer
 
-This tool is intended for **educational purposes only**. It is provided as-is and for demonstration and learning purposes. **The author and contributors are not responsible for any misuse or legal issues that may arise from its use.** Please use it responsibly and in compliance with all applicable laws and regulations.
+This tool is a simulation designed to mimic real Swedish system UID structures. The generated UIDs are **not** valid for use in any official or commercial systems. They are intended for testing, educational purposes, or internal development only.
 
-## 🙏 Acknowledgements
+---
 
-This tool was created to provide a quick and easy way to generate Swedish-format NFC UIDs for various applications, especially tailored for the Flipper Zero. Special thanks to all contributors and the open-source community for their support.
+## 📜 License
+
+This project is provided "as is" without any warranties. Use it at your own risk. Feel free to modify and distribute as needed.
+
+---
+
+Enjoy generating your Swedish NFC UIDs! 🎉
 ```

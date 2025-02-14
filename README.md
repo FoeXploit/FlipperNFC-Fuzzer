@@ -1,6 +1,13 @@
+Below is an updated version of the README with an added note clarifying that this is a MIFARE fuzzer generator:
+
+---
+
+```markdown
 # 🇸🇪 Swedish NFC UID Generator v2.0 🚀
 
 This Python tool simulates the generation of **real Swedish system-compatible UIDs** for various applications. It is designed to mimic the UID formats used in Swedish systems, such as Stockholm Public Transport (SL), industrial systems by ASSA Abloy, apartment door systems, and property gates. Each application type is based on specific field structures and includes a fixed prefix, ensuring that the generated UIDs resemble actual UIDs from Swedish systems.
+
+> **Note:** This is a **MIFARE fuzzer generator**. This script simulates a UID by piecing together random and preset values, which isn’t how real NFC tags operate. In reality, NFC UIDs follow standard formats (or are simply fixed unique numbers) and do not include these fields or computed checksums as shown. 
 
 ---
 
@@ -129,6 +136,8 @@ This line shows:
 
 This tool is a simulation designed to mimic real Swedish system UID structures. The generated UIDs are **not** valid for use in any official or commercial systems. They are intended for testing, educational purposes, or internal development only.
 
+> **Important:** This is a MIFARE fuzzer generator. It simulates UIDs by assembling various fields (using random and preset values) rather than reading or altering actual NFC tags. In reality, NFC UIDs are pre-assigned, fixed unique numbers and follow standardized formats without the additional computed fields or checksums demonstrated here. This script simulates a UID by piecing together random and preset values, which isn’t how real NFC tags operate. In reality, NFC UIDs follow standard formats (or are simply fixed unique numbers) and do not include these fields or computed checksums as shown. 
+
 ---
 
 ## 📜 License
@@ -139,3 +148,7 @@ This project is provided "as is" without any warranties. Use it at your own risk
 
 Enjoy generating your Swedish NFC UIDs! 🎉
 ```
+
+---
+
+This revised README now explicitly states that the script is a MIFARE fuzzer generator and clarifies the simulation nature of the UID generation process.

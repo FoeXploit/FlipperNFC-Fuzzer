@@ -1,8 +1,3 @@
-Below is an updated version of the README with an added note clarifying that this is a MIFARE fuzzer generator:
-
----
-
-```markdown
 # 🇸🇪 Swedish NFC UID Generator v2.0 🚀
 
 This Python tool simulates the generation of **real Swedish system-compatible UIDs** for various applications. It is designed to mimic the UID formats used in Swedish systems, such as Stockholm Public Transport (SL), industrial systems by ASSA Abloy, apartment door systems, and property gates. Each application type is based on specific field structures and includes a fixed prefix, ensuring that the generated UIDs resemble actual UIDs from Swedish systems.
@@ -148,7 +143,3 @@ This project is provided "as is" without any warranties. Use it at your own risk
 
 Enjoy generating your Swedish NFC UIDs! 🎉
 ```
-
----
-
-This revised README now explicitly states that the script is a MIFARE fuzzer generator and clarifies the simulation nature of the UID generation process.

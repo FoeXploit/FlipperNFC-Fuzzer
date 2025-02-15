@@ -1,145 +1,88 @@
-# 🇸🇪 Swedish NFC UID Generator v2.0 🚀
+# 🔑 NFC UID Generator
 
-This Python tool simulates the generation of **real Swedish system-compatible UIDs** for various applications. It is designed to mimic the UID formats used in Swedish systems, such as Stockholm Public Transport (SL), industrial systems by ASSA Abloy, apartment door systems, and property gates. Each application type is based on specific field structures and includes a fixed prefix, ensuring that the generated UIDs resemble actual UIDs from Swedish systems.
-
-> **Note:** This is a **MIFARE fuzzer generator**. This script simulates a UID by piecing together random and preset values, which isn’t how real NFC tags operate. In reality, NFC UIDs follow standard formats (or are simply fixed unique numbers) and do not include these fields or computed checksums as shown. 
-
----
+## 📌 Overview
+This script generates NFC UIDs based on international standards for different types of MIFARE cards. It supports custom UID patterns, random fuzzing, and batch generation of UID lists, making it ideal for testing NFC applications, particularly with tools like Flipper Zero.
 
 ## ✨ Features
+- ✅ Supports MIFARE Classic 1K, Classic 4K, and Ultralight cards.
+- 🔄 Generates UIDs using predefined base patterns.
+- 🎨 Supports custom UID patterns with `?` wildcards for randomness.
+- 🎲 Random fuzzing of UID digits for variation.
+- 📂 Batch UID file generation.
 
-- **Application-Specific UID Generation** 🔑  
-  Generate UIDs that follow predefined structures for:
-  - **Public Transit** (e.g., SL Access Cards) 🚌
-  - **Industrial Door Systems** (e.g., ASSA Abloy industrial systems) 🏭
-  - **Apartment Door Systems** (e.g., HSB Living) 🏢
-  - **Property Gates** (e.g., Nordomatic systems) 🚪
+## ⚙️ Prerequisites
+- 🐍 Python 3.x
 
-- **Card Type Selection** 📇  
-  Supports multiple card formats:
-  - **Classic 1K & Classic 4K:** 4-byte UIDs  
-  - **Ultralight:** 7-byte UIDs
+## 📥 Installation
+Clone or download this repository, then navigate to the script location in a terminal.
 
-- **Detailed Breakdown** 📝  
-  Each generated UID includes a human-readable breakdown of its constituent fields (e.g., prefix, transport authority, company ID, etc.) in the output file.
-
-- **Realistic UID Structure** 🔍  
-  The generation logic uses fixed prefixes and realistic field assignments (including random selections and date-based calculations) to simulate production-grade UID formats.
-
----
-
-## 📚 System-Specific UID Logic
-
-The script defines system-specific patterns in the `SWEDISH_UID_PATTERNS` dictionary. For example:
-
-- **Public Transit** 🚌  
-  - **Prefix:** `0x04`  
-  - **Structure:**  
-    - `prefix` (1 byte)  
-    - `transport_authority` (2 bytes; e.g., `0xAB` for SL or `0xCD` for Västtrafik)  
-    - `card_type` (1 byte; different values for Adult, Child, Senior)  
-    - `issuer_code` (1 byte; e.g., `0x25` for Assa Abloy)  
-    - `serial` (2 bytes; random)
-
-- **Industrial Door** 🏭  
-  - **Prefix:** `0x02`  
-  - **Structure:**  
-    - `prefix` (1 byte)  
-    - `company_id` (2 bytes; e.g., `0x0041` for Volvo, `0x003B` for Scania)  
-    - `facility_code` (1 byte)  
-    - `door_group` (1 byte)  
-    - `checksum` (1 byte; calculated as XOR of previous bytes)  
-    - `serial` (2 bytes; random)
-
-- **Apartment Door** 🏢  
-  - **Prefix:** `0x01`  
-  - **Structure:**  
-    - `prefix` (1 byte)  
-    - `municipality_code` (2 bytes; ISO 3166-2:SE code)  
-    - `housing_assoc` (1 byte)  
-    - `building_id` (1 byte)  
-    - `unit_code` (1 byte)  
-    - `issue_date` (2 bytes; encoded as week and year)
-
-- **Property Gate** 🚪  
-  - **Prefix:** `0x03`  
-  - **Structure:**  
-    - `prefix` (1 byte)  
-    - `region_code` (1 byte; e.g., `0x01` for Norrland)  
-    - `property_type` (1 byte; e.g., Residential or Commercial)  
-    - `installer_id` (1 byte; certified partner code)  
-    - `activation_date` (2 bytes; days since 2000-01-01)  
-    - `unique_id` (2 bytes; random)
-
-The card types determine the total length of the UID. For example, Classic cards produce 4-byte UIDs, while Ultralight cards produce 7-byte UIDs.
-
----
-
-## 🛠️ Requirements
-
-- Python 3.6 or higher
-
----
-
-## ▶️ How to Use
-
-1. **Clone or Download the Repository**  
-   Save the script (e.g., as `swedish_uid_generator.py`) to your local machine.
-
-2. **Run the Script**
-
-   Open a terminal and execute:
-
-   ```bash
-   python swedish_uid_generator.py
-   ```
-
-3. **Follow On-Screen Prompts**
-
-   - **Select Application Type:**  
-     Choose from options like Public Transit, Industrial Door, Apartment Door, or Property Gate.
-
-   - **Select Card Format:**  
-     Choose the card type (Classic 1K, Classic 4K, or Ultralight).
-
-   - **Specify UID Quantity:**  
-     Enter the number of UIDs you wish to generate (between 1 and 1000).
-
-   - **Provide an Output Filename:**  
-     The generated UIDs (with field breakdowns) will be saved to the specified file.
-
-4. **Review the Output**  
-   Each line in the output file includes the generated UID in uppercase hexadecimal format followed by a comment with the breakdown of each field.
-
----
-
-## 📖 Example Output
-
-An example line in the output file might look like:
-
-```
-04AB01A9253F # {'prefix': '0x04', 'transport_authority': '0xABCD', 'card_type': '0x01', 'issuer_code': '0x25', 'serial': '0x3F92'}
+```bash
+git clone <repository-url>
+cd <repository-folder>
 ```
 
-This line shows:
-- The UID: `04AB01A9253F`  
-- A breakdown of its components: the fixed prefix, selected transport authority, card type, issuer code, and a randomly generated serial number.
+## 🚀 Usage
+Run the script using Python:
 
----
+```bash
+python nfc_uid_generator.py
+```
 
-## ⚠️ Disclaimer
+### 🖥️ Interactive Mode
+The script will prompt for:
+1. 📌 Card type selection (MIFARE Classic 1K, 4K, or Ultralight).
+2. 🏗️ Optional custom UID pattern(s) with `?` wildcards for random digits.
+3. 🔢 Number of UIDs to generate.
+4. 📝 Output filename (defaults to `nfc_uids.txt`).
 
-This tool is a simulation designed to mimic real Swedish system UID structures. The generated UIDs are **not** valid for use in any official or commercial systems. They are intended for testing, educational purposes, or internal development only.
+### 📜 Example Usage
+#### 🏗️ Generating a Default UID List
+```
+python nfc_uid_generator.py
+```
+Follow the interactive prompts to generate NFC UIDs.
 
-> **Important:** This is a MIFARE fuzzer generator. It simulates UIDs by assembling various fields (using random and preset values) rather than reading or altering actual NFC tags. In reality, NFC UIDs are pre-assigned, fixed unique numbers and follow standardized formats without the additional computed fields or checksums demonstrated here. This script simulates a UID by piecing together random and preset values, which isn’t how real NFC tags operate. In reality, NFC UIDs follow standard formats (or are simply fixed unique numbers) and do not include these fields or computed checksums as shown. 
+#### 🎨 Generating UIDs with a Custom Pattern
+If prompted for a pattern, enter something like:
+```
+12??5AE0
+```
+This will replace `?` with random hex digits.
 
----
+#### 📂 Batch Generation to a File
+```
+python nfc_uid_generator.py
+```
+Enter the desired quantity and filename when prompted.
+
+## 📊 Example Output
+```
+=== Flipper Zero MIFARE Fuzzer UID Generator ===
+
+Select card format:
+1. Classic 1K (4 bytes)
+2. Classic 4K (4 bytes)
+3. Ultralight (7 bytes)
+
+Choice (1-3): 1
+
+Enter custom UID pattern(s) using '?' for random digits (must be 8 hex characters). 
+For multiple patterns, separate them with commas.
+Leave blank to use default fuzzing generation:
+
+Number of UIDs to generate (1-1000): 5
+Output filename: test_uids.txt
+
+Generating 5 NFC UIDs...
+✅ Success! Output saved to test_uids.txt
+
+📌 Sample Generated UID:
+- UID: 12C35AE0
+```
 
 ## 📜 License
+This script is open-source and provided under the MIT License.
 
-This project is provided "as is" without any warranties. Use it at your own risk. Feel free to modify and distribute as needed.
+## ⚠️ Disclaimer
+This tool is intended for educational and testing purposes only. Use responsibly and ensure compliance with local regulations when working with NFC technology.
 
----
-
-Enjoy generating your Swedish NFC UIDs! 🎉
-```

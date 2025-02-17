@@ -17,8 +17,8 @@ This script generates NFC UIDs based on international standards for different ty
 Clone or download this repository, then navigate to the script location in a terminal.
 
 ```bash
-git clone <repository-url>
-cd <repository-folder>
+git clone https://github.com/FoeXploit/FlipperNFC-Fuzzer
+cd FlipperNFC-Fuzzer
 ```
 
 ## 🚀 Usage

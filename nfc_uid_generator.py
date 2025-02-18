@@ -15,9 +15,9 @@ CARD_TYPES = {
 # Default base patterns for fuzzing (Flipper Zero MIFARE Fuzzer style)
 # ------------------------------------------------------------------------
 BASE_PATTERNS = {
-    'classic_1k': "12BA5AE0",
-    'classic_4k': "12BA5AE0",
-    'ultralight': "04BA5AE0D12345"
+    'classic_1k': "1A2D3C4D",
+    'classic_4k': "1A2D3C4D",
+    'ultralight': "AADDCCDDFF00"
 }
 
 def fuzz_uid(base, changes=1):

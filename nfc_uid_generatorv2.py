@@ -16,7 +16,7 @@ CARD_TYPES = {
 # ------------------------------------------------------------------------
 BASE_PATTERNS = {
     'classic_1k': "1A2D3C4D",
-    'classic_4k': "1A2D3C4D§",
+    'classic_4k': "1A2D3C4D",
     'ultralight': "AADDCCDDFF00"
 }
 
